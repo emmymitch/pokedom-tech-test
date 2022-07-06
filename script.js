@@ -76,6 +76,7 @@ const addTypeFilter = () => {
 
     const typeFilter = document.querySelector(".typeDropdown");
     for (let i=0; i<typeList.length; i++){
+        typeList[i] = typeList[i].charAt(0).toUpperCase() + typeList[i].slice(1);
         typeFilter.innerHTML += `<option>${typeList[i]}</option>`;
     }
 
