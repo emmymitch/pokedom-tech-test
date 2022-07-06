@@ -2,12 +2,31 @@ import pokemonArray from "./data/pokemon.js";
 
 let cardContainer = document.querySelector(".card-container");
 const header = document.querySelector("h1");
-const typeList = ["Bug", "Dragon", "Electric", "Fairy", "Fighting",
-                    "Fire", "Flying", "Ghost", "Grass", "Ground",
-                    "Ice", "Normal", "Poison", "Psychic", "Rock",
-                    "Steel", "Water"];
-;
+let typeArray = [];
+let typeList = [];
 
+
+const findTypeList = () => {
+    //Big array of every type
+    for (let i=0; i<pokemonArray.length; i++){
+        for (let j=0; j<pokemonArray[i].types.length; j++){
+            typeArray.push(pokemonArray[i].types[j]);
+        }
+    }
+    
+    //Alpabetise
+    typeList = typeArray.sort();
+
+    //Remove duplicates
+    for (let i=typeList.length+1; i>=0; i--){
+        if (typeList[i] == typeList[i-1]){
+            typeList.splice(i, 1);
+        } else{
+            continue;
+        }
+    }
+    return typeList;
+}
 
 const addCard = (array) => {
     array.forEach((pokemon) => {
@@ -50,12 +69,12 @@ const addTypeFilter = () => {
 
     filterList.innerHTML += `
         <label for="typeDropdown" style="font-size:0.9rem">Filter by type: </label>
-        <select class="typeList" name="typeDropdown">
+        <select class="typeDropdown" name="typeDropdown">
         <option>All</option>
         </select>
     `;
 
-    const typeFilter = document.querySelector(".typeList");
+    const typeFilter = document.querySelector(".typeDropdown");
     for (let i=0; i<typeList.length; i++){
         typeFilter.innerHTML += `<option>${typeList[i]}</option>`;
     }
@@ -92,11 +111,6 @@ const addSearchBar = () => {
         <input class="searchBar" name="searchBar" type="text">
     `;
 
-    const typeFilter = document.querySelector(".typeList");
-    for (let i=0; i<typeList.length; i++){
-        typeFilter.innerHTML += `<option>${typeList[i]}</option>`;
-    }
-
     searchBar.addEventListener("input", searchPokemon);
 }
 
@@ -114,6 +128,7 @@ const searchPokemon = (event) => {
 }
 
 
+window.addEventListener("load", findTypeList);
 window.addEventListener("load", () => {addCard(pokemonArray)});
 window.addEventListener("load", addTypeFilter);
 window.addEventListener("load", addSearchBar);
