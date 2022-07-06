@@ -45,8 +45,9 @@ const addTypeFilter = () => {
     const filterList = document.createElement("div");
     header.appendChild(filterList);
     filterList.innerHTML += `
-        <select class="typeList">
-        <option>Type...</option>
+        <label for="typeDropdown" style="font-size:0.9rem">Filter by type: </label>
+        <select class="typeList" name="typeDropdown">
+        <option>All</option>
         </select>
     `;
 
@@ -54,6 +55,7 @@ const addTypeFilter = () => {
     for (let i=0; i<typeList.length; i++){
         typeFilter.innerHTML += `<option>${typeList[i]}</option>`;
     }
+
     typeFilter.addEventListener("change", filterType);
 }
 
@@ -62,7 +64,7 @@ const filterType = (event) => {
     const filter = event.target.value; //gets dropdown value
     cardContainer.innerHTML = " "; //empties screen
 
-    if (filter == "Type..."){ //no filter - should display all
+    if (filter == "All"){ //no filter - displays all
         addCard(pokemonArray);
 
     } else{
