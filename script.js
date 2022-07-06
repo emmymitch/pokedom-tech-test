@@ -6,6 +6,7 @@ const typeList = ["Bug", "Dragon", "Electric", "Fairy", "Fighting",
                     "Fire", "Flying", "Ghost", "Grass", "Ground",
                     "Ice", "Normal", "Poison", "Psychic", "Rock",
                     "Steel", "Water"];
+;
 
 
 const addCard = (array) => {
@@ -64,10 +65,10 @@ const addTypeFilter = () => {
 
 const filterType = (event) => {
     const filteredList = [];
-    const filter = event.target.value; //gets dropdown value
-    cardContainer.innerHTML = " "; //empties screen
+    const filter = event.target.value;
+    cardContainer.innerHTML = " ";
 
-    if (filter == "All"){ //no filter - displays all
+    if (filter == "All"){
         addCard(pokemonArray);
 
     } else{
@@ -100,7 +101,7 @@ const addSearchBar = () => {
 }
 
 const searchPokemon = (event) => {
-    const searchTerm = event.target.value;
+    const searchTerm = event.target.value.toLowerCase();
     const searchList = [];
     cardContainer.innerHTML = " ";
 
