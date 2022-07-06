@@ -43,7 +43,10 @@ const addCard = (array) => {
 
 const addTypeFilter = () => {
     const filterList = document.createElement("div");
+    filterList.style.display = "inline-block";
+    filterList.style.margin = "0 1rem";
     header.appendChild(filterList);
+
     filterList.innerHTML += `
         <label for="typeDropdown" style="font-size:0.9rem">Filter by type: </label>
         <select class="typeList" name="typeDropdown">
@@ -78,5 +81,38 @@ const filterType = (event) => {
 }
 
 
+const addSearchBar = () => {
+    const searchBar = document.createElement("div");
+    searchBar.style.display = "inline-block";
+    header.appendChild(searchBar);
+    
+    searchBar.innerHTML += `
+        <label for="searchBar" style="font-size:0.9rem">Search by name: </label>
+        <input class="searchBar" name="searchBar" type="text">
+    `;
+
+    const typeFilter = document.querySelector(".typeList");
+    for (let i=0; i<typeList.length; i++){
+        typeFilter.innerHTML += `<option>${typeList[i]}</option>`;
+    }
+
+    searchBar.addEventListener("input", searchPokemon);
+}
+
+const searchPokemon = (event) => {
+    const searchTerm = event.target.value;
+    const searchList = [];
+    cardContainer.innerHTML = " ";
+
+    pokemonArray.forEach((pokemon) => {
+        if (pokemon.name.search(searchTerm) >= 0){
+            searchList.push(pokemon);
+        }
+    })
+    addCard(searchList);
+}
+
+
 window.addEventListener("load", () => {addCard(pokemonArray)});
 window.addEventListener("load", addTypeFilter);
+window.addEventListener("load", addSearchBar);
